@@ -1,4 +1,5 @@
 const readline = require("readline");
+require('colors')
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -10,9 +11,9 @@ let notas = [];
 let promedios = [];
 
 function ingresarNombre(callback) {
-    rl.question("Ingrese el nombre del estudiante: ", (nombre) => {
+    rl.question("Ingrese el nombre del estudiante: ".green, (nombre) => {
         if (nombre.trim() === "") {
-            console.log("⚠️ El nombre no puede estar vacío. Intente nuevamente.");
+            console.log("⚠️ El nombre no puede estar vacío. Intente nuevamente.".yellow);
             ingresarNombre(callback);
         } else {
             callback(nombre.trim());
@@ -26,14 +27,14 @@ function ingresarNotas(callback) {
 
     function pedirNota() {
         if (contador < 4) {
-            rl.question(`Ingrese la nota ${contador + 1} (0-10): `, (nota) => {
+            rl.question(`Ingrese la nota ${contador + 1} (0-10): `.green, (nota) => {
                 let notaNum = parseFloat(nota);
                 if (!isNaN(notaNum) && notaNum >= 0 && notaNum <= 10) {
                     notasEstudiante.push(notaNum);
                     contador++;
                     pedirNota();
                 } else {
-                    console.log("⚠️ Nota inválida. Debe estar entre 0 y 10.");
+                    console.log("⚠️ Nota inválida. Debe estar entre 0 y 10.".yellow);
                     pedirNota();
                 }
             });
@@ -51,7 +52,7 @@ function calcularPromedio(notas) {
 
 function registrarEstudiantes(cantidad, contador = 0) {
     if (contador < cantidad) {
-        console.log(`\nEstudiante ${contador + 1}:`);
+        console.log(`\nEstudiante ${contador + 1}:`.blue);
         ingresarNombre((nombre) => {
             ingresarNotas((notasEstudiante) => {
                 estudiantes.push(nombre);
@@ -68,28 +69,49 @@ function registrarEstudiantes(cantidad, contador = 0) {
 }
 
 function mostrarReporte() {
-    console.log("\n📋 Reporte de Calificaciones:");
+    console.log("\n📋 Reporte de Calificaciones:".white);
     let aprobados = 0, reprobados = 0;
 
     estudiantes.forEach((nombre, i) => {
-        let estado = promedios[i] >= 7 ? "✅ Aprobado" : "❌ Reprobado";
+        let estado = promedios[i] >= 7 ? "✅ Aprobado".green : "❌ Reprobado".red;
         if (promedios[i] >= 7) aprobados++;
         else reprobados++;
 
-        console.log(`${nombre}: [${notas[i].join(", ")}] - Promedio: ${promedios[i]} ${estado}`);
+        console.log(`${nombre}: [${notas[i].join(", ")}] - Promedio: ${promedios[i]} ${estado}`.green);
     });
 
-    console.log(`\n📊 Resumen general:`);
-    console.log(`${aprobados} estudiante(s) aprobado(s)`);
-    console.log(`${reprobados} estudiante(s) reprobado(s)`);
+    console.log(`\n📊 Resumen general:`.white);
+    console.log(`${aprobados} estudiante(s) aprobado(s)`.green);
+    console.log(`${reprobados} estudiante(s) reprobado(s)`.red);
+    console.log("\n\n**************************************************************".green)
+    console.log("*    Gracias por utilizar el servicio de ingreso de notas    *".green)
+    console.log("**************************************************************".green)
 }
 
-rl.question("¿Cuántos estudiantes desea registrar? ", (cantidad) => {
-    let num = parseInt(cantidad);
-    if (!isNaN(num) && num > 0) {
-        registrarEstudiantes(num);
-    } else {
-        console.log("⚠️ Ingrese un número válido.");
-        rl.close();
-    }
-});
+function ingresoEstudiantes(){
+    console.log("***********************************************************".cyan)
+    console.log("*        Bienvenido al sistema de ingreso de notas        *".cyan)
+    console.log("***********************************************************".cyan)
+    rl.question("\n¿Cuántos estudiantes desea registrar? ".green, (cantidad) => {
+        let num = parseInt(cantidad);
+        if (!isNaN(num) && num > 0) {
+            registrarEstudiantes(num);
+        } else {
+            console.log("⚠️ Ingrese un número válido.".yellow);
+            rl.question("¿Desea intentar nuevamente o salir? (si/salir): ".cyan, (respuesta) => {
+            if (respuesta.toLowerCase().trim() === "si") {
+                console.clear()
+                ingresoEstudiantes()
+            } else {
+                console.clear()
+                console.log("**************************************************************".green)
+                console.log("*    Gracias por utilizar el servicio de ingreso de notas    *".green)
+                console.log("**************************************************************".green)
+                rl.close();
+            }
+            })
+        }
+    });
+}
+
+ingresoEstudiantes()
