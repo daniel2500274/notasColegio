@@ -1,3 +1,5 @@
+const colors = require('colors');
+
 function printAsciiArt() {
   const asciiArt = String.raw`
  _   _       _              _____       _            _       
@@ -9,7 +11,7 @@ function printAsciiArt() {
                                                 __/ |        
                                                |___/         
   `;
-  console.log(asciiArt);
+  console.log(asciiArt.red);
 }
 
 printAsciiArt();
