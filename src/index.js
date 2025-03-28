@@ -1,10 +1,13 @@
+// Librerias y modulos requeridos
 const readline = require("readline");
-require('colors')
+const pantallaInicio = require('./pantallaInicio.js');
+require('colors');
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+
 
 let estudiantes = [];
 let notas = [];
@@ -69,6 +72,7 @@ function registrarEstudiantes(cantidad, contador = 0) {
 }
 
 function mostrarReporte() {
+    pantallaInicio()
     console.log("\n📋 Reporte de Calificaciones:".white);
     let aprobados = 0, reprobados = 0;
 
@@ -89,6 +93,7 @@ function mostrarReporte() {
 }
 
 function ingresoEstudiantes(){
+    pantallaInicio()
     console.log("***********************************************************".cyan)
     console.log("*        Bienvenido al sistema de ingreso de notas        *".cyan)
     console.log("***********************************************************".cyan)
