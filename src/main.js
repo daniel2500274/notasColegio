@@ -1,7 +1,7 @@
 // Importar módulos
 const { rl, ingresarNombre, ingresarNotas } = require("./ingresarAlumnos.js");
 const { calcularPromedio } = require("./calcularPromedio.js");
-const { mostrarReporte } = require("./reporte_calificaciones");
+const { mostrarReporte } = require("./reporteCalificaciones");
 const pantallaInicio = require("./pantallaInicio");
 
 let estudiantes = [];
