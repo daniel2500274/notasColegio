@@ -8,7 +8,8 @@ let estudiantes = [];
 let notas = [];
 let promedios = [];
 
-// Función para registrar estudiantes
+// Función main 6
+// para registrar estudiantes
 function registrarEstudiantes(cantidad, contador = 0) {
     if (contador < cantidad) {
         console.log(`\nEstudiante ${contador + 1}:`.blue);
@@ -23,9 +24,23 @@ function registrarEstudiantes(cantidad, contador = 0) {
         });
     } else {
         mostrarReporte(pantallaInicio, estudiantes, notas, promedios);
-        rl.close();
+
+        rl.question("¿Desea intentar nuevamente o salir? (si/salir): ".cyan, (respuesta) => {
+            if (respuesta.toLowerCase().trim() === "si") {
+                console.clear();
+                ingresoEstudiantes();
+            } else {
+                pantallaInicio();
+                console.log("**************************************************************".green);
+                console.log("*    Gracias por utilizar el servicio de ingreso de notas    *".green);
+                console.log("**************************************************************".green);
+                rl.close();
+            }
+        });
+
     }
 }
+
 
 // Función principal
 function ingresoEstudiantes() {

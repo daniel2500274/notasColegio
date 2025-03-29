@@ -17,9 +17,6 @@ function mostrarReporte(pantallaInicio, estudiantes, notas, promedios) {
     console.log(`\n📊 Resumen general:`.white);
     console.log(`${aprobados} estudiante(s) aprobado(s)`.green);
     console.log(`${reprobados} estudiante(s) reprobado(s)`.red);
-    console.log("\n\n**************************************************************".green);
-    console.log("*    Gracias por utilizar el servicio de ingreso de notas    *".green);
-    console.log("**************************************************************".green);
 }
 
 module.exports = {
