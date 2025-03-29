@@ -2,7 +2,7 @@ require("colors");
 
 function mostrarReporte(pantallaInicio, estudiantes, notas, promedios) {
     pantallaInicio();
-    console.log("\n📋 Reporte de Calificaciones:".white);
+    console.log("\n📋 Reporte de Calificaciones por estudiante:".white);
 
     let aprobados = 0, reprobados = 0;
 

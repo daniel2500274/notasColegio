@@ -8,14 +8,31 @@ const rl = readline.createInterface({
 // Función para ingresar nombre
 function ingresarNombre(callback) {
     rl.question("Ingrese el nombre del estudiante: ".green, (nombre) => {
-        if (nombre.trim() === "") {
+        if (typeof nombre !== "string") {
+            console.log("⚠️ Error: Entrada inválida.".yellow);
+            ingresarNombre(callback);
+            return;
+        }
+
+        nombre = nombre.trim();
+
+        if (nombre === "") {
             console.log("⚠️ El nombre no puede estar vacío. Intente nuevamente.".yellow);
             ingresarNombre(callback);
+        } else if (/\d/.test(nombre)) {
+            console.log("⚠️ El nombre no debe contener números. Intente nuevamente.".yellow);
+            ingresarNombre(callback);
         } else {
-            callback(nombre.trim());
+            callback(
+                nombre
+                    .split(" ")
+                    .map(palabra => palabra.charAt(0).toUpperCase() + palabra.slice(1))
+                    .join(" ")
+            );
         }
     });
 }
+
 
 // Función para ingresar notas
 function ingresarNotas(callback) {
